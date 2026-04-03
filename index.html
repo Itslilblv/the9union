@@ -3,117 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شاورما وبرجر دريم | طلبات أونلاين</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+    <title>DREAM SHAWARMA | عالم من الأحلام</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- التصميم والشكل --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #161616;
+            --primary: #ff6600; /* برتقالي دريم */
+            --text-white: #ffffff;
+            --text-gray: #b3b3b3;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding-bottom: 100px;
+            background-image: radial-gradient(circle at top right, #1a100a, transparent); /* لمسة إضاءة خافتة */
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            border-bottom: 1px solid #222;
+        }
+
+        .logo {
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .section-title {
+            padding: 20px;
+            font-size: 1.5rem;
+            border-right: 4px solid var(--primary);
+            margin: 20px;
+            background: linear-gradient(to left, transparent, #1a1a1a);
+        }
+
+        .menu-container { padding: 10px; }
+
+        .menu-card {
+            background: var(--card-bg);
+            margin: 15px;
+            padding: 20px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #222;
+            transition: 0.3s;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .menu-card:hover { border-color: var(--primary); transform: scale(1.02); }
+
+        .card-info h3 { margin: 0; font-size: 1.2rem; }
+        .card-info .price { color: var(--primary); font-weight: bold; font-size: 1.1rem; margin-top: 5px; }
+
+        .add-btn {
+            background: #222;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .add-btn:active { background: var(--primary); transform: scale(0.9); }
+
+        /* --- زر الواتساب العائم --- */
+        .order-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(15px);
+            box-sizing: border-box;
+            border-top: 1px solid #333;
+        }
+
+        .order-now-btn {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            padding: 18px;
+            border-radius: 18px;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 900;
+            box-shadow: 0 10px 30px rgba(255, 102, 0, 0.3);
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">DREAM <span>SHAWARMA</span></div>
-        <p>بحرة - طريق مكة القديم</p>
+        <h1 class="logo">DREAM <span>SHAWARMA</span></h1>
+        <p style="color: var(--text-gray);">بحرة - طريق مكة القديم</p>
     </header>
 
-    <main class="menu-container">
-        
+    <div class="menu-container">
         <h2 class="section-title">قسم الشاورما</h2>
-        <div class="items-grid">
-            <div class="menu-card">
+        <div class="menu-card">
+            <div class="card-info">
                 <h3>شاورما دجاج صغير</h3>
                 <p class="price">6 SAR</p>
-                <button class="add-btn" onclick="addToCart('شاورما دجاج صغير', 6)">إضافة +</button>
             </div>
-            <div class="menu-card">
+            <button class="add-btn" onclick="addToCart('شاورما دجاج صغير', 6)">إضافة +</button>
+        </div>
+
+        <div class="menu-card">
+            <div class="card-info">
                 <h3>شاورما دجاج كبير</h3>
                 <p class="price">8 SAR</p>
-                <button class="add-btn" onclick="addToCart('شاورما دجاج كبير', 8)">إضافة +</button>
             </div>
-            <div class="menu-card">
-                <h3>صحن عربي كبير</h3>
-                <p class="price">19 SAR</p>
-                <button class="add-btn" onclick="addToCart('صحن عربي كبير', 19)">إضافة +</button>
-            </div>
+            <button class="add-btn" onclick="addToCart('شاورما دجاج كبير', 8)">إضافة +</button>
         </div>
 
         <h2 class="section-title">البرجر والوجبات</h2>
-        <div class="items-grid">
-            <div class="menu-card">
+        <div class="menu-card">
+            <div class="card-info">
                 <h3>برجر زنجر بالجبنة</h3>
                 <p class="price">9 SAR</p>
-                <button class="add-btn" onclick="addToCart('برجر زنجر بالجبنة', 9)">إضافة +</button>
             </div>
-            <div class="menu-card">
-                <h3>وجبة برجر لحم حراق</h3>
-                <p class="price">16 SAR</p>
-                <button class="add-btn" onclick="addToCart('وجبة برجر لحم حراق', 16)">إضافة +</button>
-            </div>
-            <div class="menu-card">
-                <h3>وجبة دبل برجر</h3>
-                <p class="price">21 SAR</p>
-                <button class="add-btn" onclick="addToCart('وجبة دبل برجر', 21)">إضافة +</button>
-            </div>
-            <div class="menu-card">
-                <h3>باشكا ايطاليا</h3>
-                <p class="price">20 SAR</p>
-                <button class="add-btn" onclick="addToCart('باشكا ايطاليا', 20)">إضافة +</button>
-            </div>
+            <button class="add-btn" onclick="addToCart('برجر زنجر بالجبنة', 9)">إضافة +</button>
         </div>
-
-        <h2 class="section-title">المقبلات والمشروبات</h2>
-        <div class="items-grid">
-            <div class="menu-card">
-                <h3>بطاطس كرسبي كبير</h3>
-                <p class="price">9 SAR</p>
-                <button class="add-btn" onclick="addToCart('بطاطس كرسبي كبير', 9)">إضافة +</button>
-            </div>
-            <div class="menu-card">
-                <h3>بيبسي / عصير</h3>
-                <p class="price">2.5 SAR</p>
-                <button class="add-btn" onclick="addToCart('بيبسي/عصير', 2.5)">إضافة +</button>
-            </div>
+        
         </div>
-
-    </main>
 
     <div class="order-bar">
-        <button id="main-order-btn" class="order-now-btn" onclick="sendToWhatsApp()">
-            إرسال الطلب للواتساب | <span id="total-price">0</span> SAR
+        <button class="order-now-btn" onclick="sendToWhatsApp()">
+            إتمام الطلب (واتساب) | <span id="total-price">0</span> SAR
         </button>
     </div>
 
     <script>
-        let cartItems = [];
+        let cart = [];
         let total = 0;
 
-        function addToCart(itemName, price) {
-            cartItems.push({name: itemName, price: price});
+        function addToCart(name, price) {
+            cart.push(name);
             total += price;
-            document.getElementById('total-price').innerText = total.toFixed(2);
-            
-            const btn = document.getElementById('main-order-btn');
-            btn.style.transform = "scale(1.02)";
-            setTimeout(() => btn.style.transform = "scale(1)", 100);
+            document.getElementById('total-price').innerText = total;
         }
 
         function sendToWhatsApp() {
-            if (cartItems.length === 0) {
-                alert("السلة فارغة!");
-                return;
-            }
-
-            const phoneNumber = "966546656090"; // رقم المطعم
-            let message = "*طلب جديد من الموقع:*%0a%0a";
-            
-            cartItems.forEach((item, index) => {
-                message += `• ${item.name} (${item.price} ريال)%0a`;
-            });
-
-            message += `%0a*المجموع الكلي: ${total.toFixed(2)} ريال*`;
-            message += `%0a%0a_تم الطلب عبر نظام دريم الذكي_`;
-
-            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+            if (total === 0) return alert("اختر وجبتك أولاً!");
+            const phone = "966546656090";
+            let msg = "*طلب جديد من الموقع:*%0a" + cart.join("%0a") + "%0a%0a*المجموع: " + total + " ريال*";
+            window.open(`https://wa.me/${phone}?text=${msg}`);
         }
     </script>
-
 </body>
 </html>
