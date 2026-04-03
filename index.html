@@ -1,120 +1,119 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="mainHtml">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The 9 Union | اتحاد التسعة</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Cairo', sans-serif; background-color: #0a0a0a; color: #ffffff; transition: all 0.3s ease; }
-        .en-font { font-family: 'Inter', sans-serif; }
-        .gold-text { color: #d4af37; }
-        .gold-bg { background-color: #d4af37; }
-    </style>
+    <title>شاورما وبرجر دريم | طلبات أونلاين</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
 </head>
-<body class="flex flex-col min-h-screen">
+<body>
 
-    <header class="p-6 flex justify-between items-center border-b border-gray-800">
-        <h1 class="text-2xl md:text-3xl font-bold tracking-tighter">THE <span class="gold-text">9</span> UNION</h1>
-        <button onclick="toggleLanguage()" id="langBtn" class="border border-gray-600 px-4 py-1 rounded-full text-xs hover:border-gold-text transition">English</button>
+    <header>
+        <div class="logo">DREAM <span>SHAWARMA</span></div>
+        <p>بحرة - طريق مكة القديم</p>
     </header>
 
-    <main class="flex-grow flex flex-col items-center justify-center text-center px-4 py-12">
-        <div class="mb-8 p-4 border-2 border-dashed border-gray-700 rounded-full w-32 h-32 flex items-center justify-center">
-             <span class="text-6xl font-bold gold-text">9</span>
+    <main class="menu-container">
+        
+        <h2 class="section-title">قسم الشاورما</h2>
+        <div class="items-grid">
+            <div class="menu-card">
+                <h3>شاورما دجاج صغير</h3>
+                <p class="price">6 SAR</p>
+                <button class="add-btn" onclick="addToCart('شاورما دجاج صغير', 6)">إضافة +</button>
+            </div>
+            <div class="menu-card">
+                <h3>شاورما دجاج كبير</h3>
+                <p class="price">8 SAR</p>
+                <button class="add-btn" onclick="addToCart('شاورما دجاج كبير', 8)">إضافة +</button>
+            </div>
+            <div class="menu-card">
+                <h3>صحن عربي كبير</h3>
+                <p class="price">19 SAR</p>
+                <button class="add-btn" onclick="addToCart('صحن عربي كبير', 19)">إضافة +</button>
+            </div>
         </div>
-        
-        <h2 id="heroTitle" class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-            نحن لا ننهي الحرب فقط، <br> نحن نبني <span class="gold-text">المستقبل</span>.
-        </h2>
-        
-        <p id="heroDesc" class="max-w-2xl text-gray-400 text-lg mb-10">
-            منصة مجهولة وآمنة تماماً لحل النزاعات بالحوار، وتدريب الشباب على ريادة الأعمال، الموسيقى، والمهن الرقمية. ساعد أهلك، ابنِ دولتك، وكن القائد.
-        </p>
 
-        <div class="flex flex-col md:flex-row gap-4 w-full max-w-md">
-            <a href="#growth-zone" id="btnGrowth" class="gold-bg text-black font-bold py-4 px-8 rounded-lg hover:bg-yellow-600 transition duration-300 flex-1 text-center">
-                دخول منطقة النمو (The Growth Zone)
-            </a>
-            <a href="#peace-room" id="btnPeace" class="bg-transparent border border-white font-bold py-4 px-8 rounded-lg hover:bg-white hover:text-black transition duration-300 flex-1 text-center">
-                غرفة الصلح (Peace Room)
-            </a>
+        <h2 class="section-title">البرجر والوجبات</h2>
+        <div class="items-grid">
+            <div class="menu-card">
+                <h3>برجر زنجر بالجبنة</h3>
+                <p class="price">9 SAR</p>
+                <button class="add-btn" onclick="addToCart('برجر زنجر بالجبنة', 9)">إضافة +</button>
+            </div>
+            <div class="menu-card">
+                <h3>وجبة برجر لحم حراق</h3>
+                <p class="price">16 SAR</p>
+                <button class="add-btn" onclick="addToCart('وجبة برجر لحم حراق', 16)">إضافة +</button>
+            </div>
+            <div class="menu-card">
+                <h3>وجبة دبل برجر</h3>
+                <p class="price">21 SAR</p>
+                <button class="add-btn" onclick="addToCart('وجبة دبل برجر', 21)">إضافة +</button>
+            </div>
+            <div class="menu-card">
+                <h3>باشكا ايطاليا</h3>
+                <p class="price">20 SAR</p>
+                <button class="add-btn" onclick="addToCart('باشكا ايطاليا', 20)">إضافة +</button>
+            </div>
         </div>
+
+        <h2 class="section-title">المقبلات والمشروبات</h2>
+        <div class="items-grid">
+            <div class="menu-card">
+                <h3>بطاطس كرسبي كبير</h3>
+                <p class="price">9 SAR</p>
+                <button class="add-btn" onclick="addToCart('بطاطس كرسبي كبير', 9)">إضافة +</button>
+            </div>
+            <div class="menu-card">
+                <h3>بيبسي / عصير</h3>
+                <p class="price">2.5 SAR</p>
+                <button class="add-btn" onclick="addToCart('بيبسي/عصير', 2.5)">إضافة +</button>
+            </div>
+        </div>
+
     </main>
 
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-8 p-10 bg-zinc-900 border-t border-gray-800">
-        <div class="text-center">
-            <h3 id="feat1Title" class="gold-text font-bold text-xl mb-2">قانونية 100%</h3>
-            <p id="feat1Desc" class="text-gray-400 text-sm">منصة تعليمية واجتماعية تهدف لنبذ العنف وتنمية المجتمع.</p>
-        </div>
-        <div class="text-center">
-            <h3 id="feat2Title" class="gold-text font-bold text-xl mb-2">خصوصية تامة</h3>
-            <p id="feat2Desc" class="text-gray-400 text-sm">لا نطلب هويتك، لا نطلب بياناتك. الحوار مجهول وآمن.</p>
-        </div>
-        <div class="text-center">
-            <h3 id="feat3Title" class="gold-text font-bold text-xl mb-2">دعم عالمي</h3>
-            <p id="feat3Desc" class="text-gray-400 text-sm">بإشراف نخبة من المؤثرين ورواد الأعمال لتغيير واقع الشارع.</p>
-        </div>
-    </section>
-
-    <footer class="p-6 text-center text-gray-600 text-xs border-t border-gray-900">
-        © 2026 THE 9 UNION. <span id="footerText">صُمم للشارع، بُني للمستقبل.</span>
-    </footer>
+    <div class="order-bar">
+        <button id="main-order-btn" class="order-now-btn" onclick="sendToWhatsApp()">
+            إرسال الطلب للواتساب | <span id="total-price">0</span> SAR
+        </button>
+    </div>
 
     <script>
-        let currentLang = 'ar';
-        const content = {
-            ar: {
-                title: "نحن لا ننهي الحرب فقط، <br> نحن نبني <span class='gold-text'>المستقبل</span>.",
-                desc: "منصة مجهولة وآمنة تماماً لحل النزاعات بالحوار، وتدريب الشباب على ريادة الأعمال، الموسيقى، والمهن الرقمية. ساعد أهلك، ابنِ دولتك، وكن القائد.",
-                btnGrowth: "دخول منطقة النمو (The Growth Zone)",
-                btnPeace: "غرفة الصلح (Peace Room)",
-                feat1T: "قانونية 100%", feat1D: "منصة تعليمية واجتماعية تهدف لنبذ العنف وتنمية المجتمع.",
-                feat2T: "خصوصية تامة", feat2D: "لا نطلب هويتك، لا نطلب بياناتك. الحوار مجهول وآمن.",
-                feat3T: "دعم عالمي", feat3D: "بإشراف نخبة من المؤثرين ورواد الأعمال لتغيير واقع الشارع.",
-                footer: "صُمم للشارع، بُني للمستقبل.",
-                btnLang: "English",
-                dir: "rtl"
-            },
-            en: {
-                title: "We don't just end the war, <br> we build the <span class='gold-text'>Future</span>.",
-                desc: "An anonymous and secure platform for conflict resolution through dialogue, and training youth in entrepreneurship, music, and digital skills. Help your family, build your nation, be the leader.",
-                btnGrowth: "Enter The Growth Zone",
-                btnPeace: "Peace Room",
-                feat1T: "100% Legal", feat1D: "An educational and social platform aimed at rejecting violence and community development.",
-                feat2T: "Total Privacy", feat2D: "We don't ask for your identity or data. Dialogue is anonymous and safe.",
-                feat3T: "Global Support", feat3D: "Guided by top influencers and entrepreneurs to change the street reality.",
-                footer: "Designed for the streets, Built for the future.",
-                btnLang: "العربية",
-                dir: "ltr"
-            }
-        };
+        let cartItems = [];
+        let total = 0;
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            const langData = content[currentLang];
+        function addToCart(itemName, price) {
+            cartItems.push({name: itemName, price: price});
+            total += price;
+            document.getElementById('total-price').innerText = total.toFixed(2);
             
-            document.getElementById('mainHtml').setAttribute('dir', langData.dir);
-            document.getElementById('heroTitle').innerHTML = langData.title;
-            document.getElementById('heroDesc').innerText = langData.desc;
-            document.getElementById('btnGrowth').innerText = langData.btnGrowth;
-            document.getElementById('btnPeace').innerText = langData.btnPeace;
-            document.getElementById('feat1Title').innerText = langData.feat1T;
-            document.getElementById('feat1Desc').innerText = langData.feat1D;
-            document.getElementById('feat2Title').innerText = langData.feat2T;
-            document.getElementById('feat2Desc').innerText = langData.feat2D;
-            document.getElementById('feat3Title').innerText = langData.feat3T;
-            document.getElementById('feat3Desc').innerText = langData.feat3D;
-            document.getElementById('footerText').innerText = langData.footer;
-            document.getElementById('langBtn').innerText = langData.btnLang;
+            const btn = document.getElementById('main-order-btn');
+            btn.style.transform = "scale(1.02)";
+            setTimeout(() => btn.style.transform = "scale(1)", 100);
+        }
 
-            if(currentLang === 'en') {
-                document.body.classList.add('en-font');
-            } else {
-                document.body.classList.remove('en-font');
+        function sendToWhatsApp() {
+            if (cartItems.length === 0) {
+                alert("السلة فارغة!");
+                return;
             }
+
+            const phoneNumber = "966546656090"; // رقم المطعم
+            let message = "*طلب جديد من الموقع:*%0a%0a";
+            
+            cartItems.forEach((item, index) => {
+                message += `• ${item.name} (${item.price} ريال)%0a`;
+            });
+
+            message += `%0a*المجموع الكلي: ${total.toFixed(2)} ريال*`;
+            message += `%0a%0a_تم الطلب عبر نظام دريم الذكي_`;
+
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
         }
     </script>
+
 </body>
 </html>
