@@ -7,15 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #000; --card: #121212; --primary: #ff6600; --text: #fff; --danger: #ff4444; }
-        body { background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; padding-bottom: 160px; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; padding-bottom: 180px; }
         header { text-align: center; padding: 30px; background: linear-gradient(to bottom, #221100, #000); border-bottom: 1px solid #222; }
         .logo { font-size: 2.2rem; font-weight: 900; } .logo span { color: var(--primary); }
-        .section-title { background: #1a1a1a; color: var(--primary); padding: 12px 20px; font-weight: 900; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--primary); }
+        .section-title { background: #1a1a1a; color: var(--primary); padding: 12px 20px; font-weight: 900; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--primary); margin-top: 15px; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
         .card { background: var(--card); border-radius: 12px; border: 1px solid #222; overflow: hidden; display: flex; flex-direction: column; }
         .card img { width: 100%; height: 120px; object-fit: cover; background: #222; }
         .info { padding: 10px; text-align: center; flex-grow: 1; }
-        .info h3 { font-size: 0.85rem; margin: 5px 0; height: 35px; overflow: hidden; }
+        .info h3 { font-size: 0.85rem; margin: 5px 0; height: 35px; overflow: hidden; line-height: 1.2; }
         .price { color: var(--primary); font-weight: 900; font-size: 1rem; }
         .add-btn { background: var(--primary); color: #000; border: none; padding: 10px; font-weight: 900; cursor: pointer; width: 100%; }
         
@@ -31,13 +31,13 @@
 
 <header>
     <div class="logo">DREAM <span>SHAWARMA</span></div>
-    <p style="color:#888; font-size:0.8rem;">طعم الأحلام في قلب بحرة</p>
+    <p style="color:#888; font-size:0.8rem;">كل الأصناف والأسعار المحدثة</p>
 </header>
 
 <div id="menu-container"></div>
 
 <div id="cart-panel" class="cart-panel">
-    <p style="color:var(--primary); font-weight:bold; margin-top:0;">الطلبات المختارة (× للحذف):</p>
+    <p style="color:var(--primary); font-weight:bold; margin-top:0;">الطلبات المضافة (اضغط × للحذف):</p>
     <div id="cart-list"></div>
 </div>
 
@@ -46,38 +46,50 @@
 </div>
 
 <script>
+// روابط صور مضمونة ومجربة (لو تكررت عادي المهم تشتغل)
+const img_sh = "https://images.unsplash.com/photo-1561651823-34feb02250e4?w=400"; // شاورما
+const img_bg = "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400"; // برجر
+const img_pt = "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400"; // بطاطس
+const img_dr = "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400"; // مشروب
+
 const fullMenu = [
     { cat: "ساندوتشات الشاورما", items: [
-        { n: "شاورما دجاج صغير", p: 6, i: "https://images.unsplash.com/photo-1561651823-34feb02250e4?w=400" },
-        { n: "شاورما دجاج كبير", p: 8, i: "https://images.unsplash.com/photo-1662116765994-1e0200c4728d?w=400" },
-        { n: "شاورما صغير بالجبنة", p: 7, i: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" },
-        { n: "شاورما كبير بالجبنة", p: 9, i: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" },
-        { n: "صاروخ دريم", p: 13, i: "https://images.unsplash.com/photo-1662116765994-1e0200c4728d?w=400" },
-        { n: "صاروخ دريم بالجبنة", p: 14, i: "https://images.unsplash.com/photo-1662116765994-1e0200c4728d?w=400" }
+        { n: "شاورما دجاج صغير", p: 6, i: img_sh },
+        { n: "شاورما دجاج كبير", p: 8, i: img_sh },
+        { n: "شاورما صغير بالجبنة", p: 7, i: img_sh },
+        { n: "شاورما كبير بالجبنة", p: 9, i: img_sh },
+        { n: "صاروخ دريم (كبير جداً)", p: 13, i: img_sh },
+        { n: "صاروخ دريم بالجبنة", p: 14, i: img_sh }
     ]},
-    { cat: "الصحون والباشكا", items: [
-        { n: "صحن عربي صغير", p: 12, i: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" },
-        { n: "صحن عربي وسط", p: 16, i: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" },
-        { n: "صحن عربي كبير", p: 19, i: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" },
-        { n: "صحن عربي كبير بالجبنة", p: 20, i: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" },
-        { n: "باشكا ايطاليا", p: 20, i: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" },
-        { n: "صحن شاورما (بدون خبز)", p: 22, i: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" }
+    { cat: "قسم الصحون والباشكا", items: [
+        { n: "صحن عربي صغير", p: 12, i: img_sh },
+        { n: "صحن عربي وسط", p: 16, i: img_sh },
+        { n: "صحن عربي كبير", p: 19, i: img_sh },
+        { n: "صحن عربي كبير بالجبنة", p: 20, i: img_sh },
+        { n: "باشكا ايطاليا (خبز خاص)", p: 20, i: img_sh },
+        { n: "صحن شاورما (بدون خبز)", p: 22, i: img_sh }
     ]},
-    { cat: "الوجبات والبرجر", items: [
-        { n: "وجبة برجر دجاج", p: 15, i: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" },
-        { n: "وجبة برجر لحم", p: 15, i: "https://images.unsplash.com/photo-1550317144-633190469b61?w=400" },
-        { n: "وجبة دبل برجر", p: 20, i: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=400" },
-        { n: "برجر زنجر جبنة", p: 9, i: "https://images.unsplash.com/photo-1512152272829-e3139592d56f?w=400" },
-        { n: "برجر سمك", p: 8, i: "https://images.unsplash.com/photo-1512152272829-e3139592d56f?w=400" },
-        { n: "تورتيلا دجاج", p: 9, i: "https://images.unsplash.com/photo-1619194617062-5a61b9c6a049?w=400" }
+    { cat: "الوجبات السريعة والبرجر", items: [
+        { n: "وجبة برجر دجاج", p: 15, i: img_bg },
+        { n: "وجبة برجر دجاج بالجبنة", p: 16, i: img_bg },
+        { n: "وجبة برجر لحم", p: 15, i: img_bg },
+        { n: "وجبة برجر لحم بالجبنة", p: 16, i: img_bg },
+        { n: "وجبة دبل برجر لحم", p: 20, i: img_bg },
+        { n: "وجبة دبل برجر بالجبنة", p: 21, i: img_bg },
+        { n: "برجر زنجر (حراق)", p: 8, i: img_bg },
+        { n: "برجر زنجر بالجبنة", p: 9, i: img_bg },
+        { n: "برجر سمك", p: 8, i: img_bg },
+        { n: "برجر جمبري", p: 9, i: img_bg },
+        { n: "ساندوتش تورتيلا", p: 9, i: img_bg }
     ]},
-    { cat: "المقبلات والمشروبات", items: [
-        { n: "بطاطس كرسبي كبير", p: 9, i: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400" },
-        { n: "صحن بطاطس وسط", p: 7, i: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400" },
-        { n: "صحن بطاطس صغير", p: 5, i: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400" },
-        { n: "بيبسي / عصير", p: 2.5, i: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400" },
-        { n: "ماء", p: 1, i: "https://images.unsplash.com/photo-1548839140-29a749e1cf3d?w=400" },
-        { n: "إضافة جبنة", p: 1, i: "https://images.unsplash.com/photo-1552767059-ce182ead6c1b?w=400" }
+    { cat: "المقبلات والإضافات", items: [
+        { n: "بطاطس كرسبي كبير", p: 9, i: img_pt },
+        { n: "صحن بطاطس وسط", p: 7, i: img_pt },
+        { n: "صحن بطاطس صغير", p: 5, i: img_pt },
+        { n: "إضافة جبنة", p: 1, i: img_pt },
+        { n: "ثوم إضافي", p: 1, i: img_pt },
+        { n: "بيبسي / عصير / حمضيات", p: 2.5, i: img_dr },
+        { n: "ماء", p: 1, i: img_dr }
     ]}
 ];
 
@@ -95,7 +107,7 @@ fullMenu.forEach(section => {
                 <h3>${item.n}</h3>
                 <div class="price">${item.p} ريال</div>
             </div>
-            <button class="add-btn" onclick="addToCart('${item.n}', ${item.p})">إضافة +</button>
+            <button class="add-btn" onclick="addToCart('${item.n}', ${item.p})">إضافة للسلة +</button>
         </div>`;
     });
     html += `</div>`;
@@ -128,9 +140,9 @@ function updateUI() {
 }
 
 function sendToWA() {
-    if(cart.length === 0) return alert("السلة فارغة!");
+    if(cart.length === 0) return alert("السلة فارغة! اختر بعض الوجبات أولاً.");
     const phone = "966546656090";
-    let msg = "*طلب جديد - دريم شاورما*%0a";
+    let msg = "*طلب جديد من منيو دريم شاورما:*%0a%0a";
     cart.forEach(i => msg += `• ${i.n} (${i.p} ريال)%0a`);
     msg += `%0a*المجموع النهائي: ${total} ريال*`;
     window.open(`https://wa.me/${phone}?text=${msg}`);
