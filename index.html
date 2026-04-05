@@ -6,89 +6,80 @@
     <title>DREAM SHAWARMA | دريم شاورما</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #000; --card: #121212; --primary: #ff6600; --text: #fff; --danger: #ff4444; }
+        :root { --bg: #000; --card: #121212; --primary: #ff6600; --text: #fff; }
         body { background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; padding-bottom: 180px; }
-        header { text-align: center; padding: 30px; background: linear-gradient(to bottom, #221100, #000); border-bottom: 1px solid #222; }
+        
+        .branch-header { background: #1a1a1a; padding: 20px; border-bottom: 3px solid var(--primary); text-align: center; }
+        select { 
+            background: #000; color: #fff; border: 2px solid var(--primary); 
+            padding: 12px; border-radius: 10px; width: 90%; max-width: 400px; font-family: 'Cairo';
+        }
+
+        header { text-align: center; padding: 25px; background: linear-gradient(to bottom, #221100, #000); }
         .logo { font-size: 2.2rem; font-weight: 900; } .logo span { color: var(--primary); }
-        .section-title { background: #1a1a1a; color: var(--primary); padding: 12px 20px; font-weight: 900; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--primary); margin-top: 15px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
-        .card { background: var(--card); border-radius: 12px; border: 1px solid #222; overflow: hidden; display: flex; flex-direction: column; }
-        .card img { width: 100%; height: 120px; object-fit: cover; background: #222; }
+        
+        .section-title { background: #1a1a1a; color: var(--primary); padding: 15px 20px; font-weight: 900; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--primary); }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; }
+        .card { background: var(--card); border-radius: 15px; border: 1px solid #222; overflow: hidden; display: flex; flex-direction: column; }
+        .card img { width: 100%; height: 120px; object-fit: cover; }
         .info { padding: 10px; text-align: center; flex-grow: 1; }
-        .info h3 { font-size: 0.85rem; margin: 5px 0; height: 35px; overflow: hidden; line-height: 1.2; }
-        .price { color: var(--primary); font-weight: 900; font-size: 1rem; }
-        .add-btn { background: var(--primary); color: #000; border: none; padding: 10px; font-weight: 900; cursor: pointer; width: 100%; }
-        
-        .cart-panel { position: fixed; bottom: 95px; left: 10px; right: 10px; background: #161616; border: 1px solid var(--primary); border-radius: 15px; padding: 15px; max-height: 200px; overflow-y: auto; display: none; z-index: 1000; box-shadow: 0 -5px 25px #000; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #333; padding-bottom: 5px; font-size: 0.85rem; }
-        .del { color: var(--danger); background: none; border: 1px solid var(--danger); border-radius: 5px; padding: 0 8px; cursor: pointer; font-weight: bold; }
-        
-        .footer { position: fixed; bottom: 0; width: 100%; padding: 15px; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 1001; border-top: 1px solid #333; }
-        .order-btn { background: var(--primary); color: #000; width: 100%; padding: 18px; border-radius: 15px; border: none; font-size: 1.1rem; font-weight: 900; cursor: pointer; }
+        .price { color: var(--primary); font-weight: 900; font-size: 1.1rem; }
+        .add-btn { background: var(--primary); color: #000; border: none; padding: 12px; font-weight: 900; cursor: pointer; width: 100%; }
+
+        .cart-panel { position: fixed; bottom: 100px; left: 10px; right: 10px; background: #161616; border: 1px solid var(--primary); border-radius: 20px; padding: 15px; max-height: 220px; overflow-y: auto; display: none; z-index: 1000; }
+        .footer { position: fixed; bottom: 0; width: 100%; padding: 20px; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); z-index: 1001; }
+        .order-btn { background: var(--primary); color: #000; width: 100%; padding: 18px; border-radius: 15px; border: none; font-size: 1.2rem; font-weight: 900; cursor: pointer; }
     </style>
 </head>
 <body>
 
+<div class="branch-header">
+    <p style="margin-bottom:10px; font-weight:900;">اختر الفرع للطلب:</p>
+    <select id="branch-select">
+        <option value="966546656090">فرع بحرة - شارع 32</option>
+        <option value="966549113072">فرع بحرة - خط العين</option>
+        <option value="966560883385">فرع حداء (طريق مكة القديم)</option>
+        <option value="966550147396">فرع بحرة - المجاهدين</option>
+    </select>
+</div>
+
 <header>
     <div class="logo">DREAM <span>SHAWARMA</span></div>
-    <p style="color:#888; font-size:0.8rem;">كل الأصناف والأسعار المحدثة</p>
 </header>
 
 <div id="menu-container"></div>
 
 <div id="cart-panel" class="cart-panel">
-    <p style="color:var(--primary); font-weight:bold; margin-top:0;">الطلبات المضافة (اضغط × للحذف):</p>
+    <p style="color:var(--primary); font-weight:900; margin-top:0;">سلة الطلبات:</p>
     <div id="cart-list"></div>
 </div>
 
 <div class="footer">
-    <button class="order-btn" onclick="sendToWA()">تأكيد الطلب واتساب | <span id="total-price">0</span> ريال</button>
+    <button class="order-btn" onclick="sendOrder()">تأكيد الطلب | <span id="total-price">0</span> ريال</button>
 </div>
 
 <script>
-// روابط صور مضمونة ومجربة (لو تكررت عادي المهم تشتغل)
-const img_sh = "https://images.unsplash.com/photo-1561651823-34feb02250e4?w=400"; // شاورما
-const img_bg = "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400"; // برجر
-const img_pt = "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400"; // بطاطس
-const img_dr = "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400"; // مشروب
+const img_sh = "https://images.unsplash.com/photo-1561651823-34feb02250e4?w=400";
+const img_bg = "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400";
+const img_pt = "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400";
+const img_dr = "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400";
 
-const fullMenu = [
-    { cat: "ساندوتشات الشاورما", items: [
+const sections = [
+    { cat: "الشاورما", items: [
         { n: "شاورما دجاج صغير", p: 6, i: img_sh },
         { n: "شاورما دجاج كبير", p: 8, i: img_sh },
-        { n: "شاورما صغير بالجبنة", p: 7, i: img_sh },
-        { n: "شاورما كبير بالجبنة", p: 9, i: img_sh },
-        { n: "صاروخ دريم (كبير جداً)", p: 13, i: img_sh },
-        { n: "صاروخ دريم بالجبنة", p: 14, i: img_sh }
+        { n: "صاروخ دريم", p: 13, i: img_sh },
+        { n: "صحن عربي كبير", p: 19, i: img_sh }
     ]},
-    { cat: "قسم الصحون والباشكا", items: [
-        { n: "صحن عربي صغير", p: 12, i: img_sh },
-        { n: "صحن عربي وسط", p: 16, i: img_sh },
-        { n: "صحن عربي كبير", p: 19, i: img_sh },
-        { n: "صحن عربي كبير بالجبنة", p: 20, i: img_sh },
-        { n: "باشكا ايطاليا (خبز خاص)", p: 20, i: img_sh },
-        { n: "صحن شاورما (بدون خبز)", p: 22, i: img_sh }
-    ]},
-    { cat: "الوجبات السريعة والبرجر", items: [
+    { cat: "البرجر والوجبات", items: [
         { n: "وجبة برجر دجاج", p: 15, i: img_bg },
-        { n: "وجبة برجر دجاج بالجبنة", p: 16, i: img_bg },
         { n: "وجبة برجر لحم", p: 15, i: img_bg },
-        { n: "وجبة برجر لحم بالجبنة", p: 16, i: img_bg },
-        { n: "وجبة دبل برجر لحم", p: 20, i: img_bg },
-        { n: "وجبة دبل برجر بالجبنة", p: 21, i: img_bg },
-        { n: "برجر زنجر (حراق)", p: 8, i: img_bg },
-        { n: "برجر زنجر بالجبنة", p: 9, i: img_bg },
-        { n: "برجر سمك", p: 8, i: img_bg },
-        { n: "برجر جمبري", p: 9, i: img_bg },
-        { n: "ساندوتش تورتيلا", p: 9, i: img_bg }
+        { n: "برجر زنجر جبنة", p: 9, i: img_bg },
+        { n: "تورتيلا دجاج", p: 9, i: img_bg }
     ]},
-    { cat: "المقبلات والإضافات", items: [
-        { n: "بطاطس كرسبي كبير", p: 9, i: img_pt },
-        { n: "صحن بطاطس وسط", p: 7, i: img_pt },
-        { n: "صحن بطاطس صغير", p: 5, i: img_pt },
-        { n: "إضافة جبنة", p: 1, i: img_pt },
-        { n: "ثوم إضافي", p: 1, i: img_pt },
-        { n: "بيبسي / عصير / حمضيات", p: 2.5, i: img_dr },
+    { cat: "المقبلات والمشروبات", items: [
+        { n: "بطاطس كبير", p: 9, i: img_pt },
+        { n: "بيبسي / عصير", p: 2.5, i: img_dr },
         { n: "ماء", p: 1, i: img_dr }
     ]}
 ];
@@ -96,56 +87,38 @@ const fullMenu = [
 let cart = [];
 let total = 0;
 
-const menuDiv = document.getElementById('menu-container');
-fullMenu.forEach(section => {
-    let html = `<div class="section-title">${section.cat}</div><div class="grid">`;
-    section.items.forEach(item => {
-        html += `
-        <div class="card">
-            <img src="${item.i}" loading="lazy">
-            <div class="info">
-                <h3>${item.n}</h3>
-                <div class="price">${item.p} ريال</div>
-            </div>
-            <button class="add-btn" onclick="addToCart('${item.n}', ${item.p})">إضافة للسلة +</button>
-        </div>`;
+const cont = document.getElementById('menu-container');
+sections.forEach(s => {
+    let h = `<div class="section-title">${s.cat}</div><div class="grid">`;
+    s.items.forEach(item => {
+        h += `<div class="card"><img src="${item.i}"><div class="info"><h3>${item.n}</h3><div class="price">${item.p} ريال</div></div><button class="add-btn" onclick="add('${item.n}', ${item.p})">إضافة +</button></div>`;
     });
-    html += `</div>`;
-    menuDiv.innerHTML += html;
+    h += `</div>`;
+    cont.innerHTML += h;
 });
 
-function addToCart(n, p) {
-    cart.push({ n, p, id: Date.now() });
-    updateUI();
-}
+function add(n, p) { cart.push({ n, p, id: Date.now() }); render(); }
+function del(id) { cart = cart.filter(i => i.id !== id); render(); }
 
-function delItem(id) {
-    cart = cart.filter(i => i.id !== id);
-    updateUI();
-}
-
-function updateUI() {
+function render() {
     const list = document.getElementById('cart-list');
     const panel = document.getElementById('cart-panel');
-    list.innerHTML = "";
-    total = 0;
+    list.innerHTML = ""; total = 0;
     if(cart.length > 0) {
         panel.style.display = "block";
-        cart.forEach(i => {
-            total += i.p;
-            list.innerHTML += `<div class="cart-item"><span>${i.n}</span><span>${i.p} ريال <button class="del" onclick="delItem(${i.id})">×</button></span></div>`;
-        });
+        cart.forEach(i => { total += i.p; list.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>${i.n}</span><span>${i.p} ريال <button onclick="del(${i.id})" style="color:red; background:none; border:none;">×</button></span></div>`; });
     } else { panel.style.display = "none"; }
     document.getElementById('total-price').innerText = total;
 }
 
-function sendToWA() {
-    if(cart.length === 0) return alert("السلة فارغة! اختر بعض الوجبات أولاً.");
-    const phone = "966546656090";
-    let msg = "*طلب جديد من منيو دريم شاورما:*%0a%0a";
+function sendOrder() {
+    if(cart.length === 0) return alert("السلة فارغة!");
+    const branchPhone = document.getElementById('branch-select').value;
+    const branchName = document.getElementById('branch-select').options[document.getElementById('branch-select').selectedIndex].text;
+    let msg = `*طلب جديد من: ${branchName}*%0a%0a`;
     cart.forEach(i => msg += `• ${i.n} (${i.p} ريال)%0a`);
-    msg += `%0a*المجموع النهائي: ${total} ريال*`;
-    window.open(`https://wa.me/${phone}?text=${msg}`);
+    msg += `%0a*المجموع: ${total} ريال*`;
+    window.open(`https://wa.me/${branchPhone}?text=${msg}`);
 }
 </script>
 </body>
